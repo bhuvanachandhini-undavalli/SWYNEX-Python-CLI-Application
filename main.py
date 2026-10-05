@@ -1,4 +1,37 @@
-import task_manager
+tasks = []
+
+
+def add_task(task):
+    if not task.strip():
+        raise ValueError("Task cannot be empty.")
+
+    tasks.append(task.strip())
+    print("Task added successfully!")
+
+
+def view_tasks():
+    if not tasks:
+        print("No tasks available.")
+        return
+
+    print("\nYour Tasks:")
+
+    for number, task in enumerate(tasks, start=1):
+        print(f"{number}. {task}")
+
+
+def delete_task(task_number):
+    try:
+        task_number = int(task_number)
+
+        if task_number < 1 or task_number > len(tasks):
+            raise ValueError("Invalid task number.")
+
+        removed_task = tasks.pop(task_number - 1)
+        print(f"Deleted: {removed_task}")
+
+    except ValueError:
+        print("Please enter a valid task number.")
 
 
 def show_menu():
@@ -16,22 +49,24 @@ def main():
         choice = input("Enter your choice: ")
 
         if choice == "1":
-    task = input("Enter task: ")
+            task = input("Enter task: ")
 
-    try:
-        task_manager.add_task(task)
-    except ValueError as error:
-        print(f"Error: {error}")
+            try:
+                add_task(task)
+            except ValueError as error:
+                print(f"Error: {error}")
 
         elif choice == "2":
-            task_manager.view_tasks()
+            view_tasks()
 
         elif choice == "3":
-            task_manager.view_tasks()
+            view_tasks()
 
-            if task_manager.tasks:
-                task_number = input("Enter task number to delete: ")
-                task_manager.delete_task(task_number)
+            if tasks:
+                task_number = input(
+                    "Enter task number to delete: "
+                )
+                delete_task(task_number)
 
         elif choice == "4":
             print("Thank you for using SWYNEX Task Manager!")
