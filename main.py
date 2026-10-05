@@ -16,8 +16,12 @@ def main():
         choice = input("Enter your choice: ")
 
         if choice == "1":
-            task = input("Enter task: ")
-            task_manager.add_task(task)
+    task = input("Enter task: ")
+
+    try:
+        task_manager.add_task(task)
+    except ValueError as error:
+        print(f"Error: {error}")
 
         elif choice == "2":
             task_manager.view_tasks()
